@@ -1,0 +1,99 @@
+<app-layout>
+  <div class="container p-4">
+    <form [formGroup]="reportForm">
+    <div class="row my-5">
+      <div class="mb-3 col-md-4">
+        <label class="form-label">Class *</label>
+     
+        <select class="form-select" formControlName="studentClass">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let sec of classes" [value]="sec._id">{{sec.className}}</option>
+        </select>
+      </div>
+
+      <div class="mb-3 col-md-4">
+        <label class="form-label">Section *</label>
+      
+        <select class="form-select" formControlName="section">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let sec of sections" [value]="sec._id">{{sec.name}}</option>
+        </select>
+      </div>
+      <div class="mb-3 col-md-4">
+        <label class="form-label">Year *</label>
+        <select class="form-select" formControlName="academicYear">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let year of aceYear" [value]="year._id">{{year.name}}</option>
+        </select>
+      </div>
+    </div>
+</form>
+    <div class="text-end mb-3">
+      <button class="btn" (click)="callReport(reportForm)" [disabled]="!reportForm.valid">Filter</button>
+    </div>
+
+    <div class="tab-container pt-4">
+      <div class="top-options">
+        <div class="search-area">
+          <div class="input-group pe-3">
+            <input type="search" class="form-control" placeholder="Search here...">
+            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+          </div>
+          <div class="options">
+            <button class="btn"><img src="assets/icons/opt-copy.svg"></button>
+            <button class="btn"><img src="assets/icons/opt-excel.svg"></button>
+            <button class="btn"><img src="assets/icons/opt-pdf.svg"></button>
+            <button class="btn"><img src="assets/icons/opt-sheet.svg"></button>
+            <button class="btn"><img src="assets/icons/opt-print.svg"></button>
+          </div>
+        </div>
+      </div>
+
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th width="5%" >SL</th>
+            <th width="15%">Student Name</th>
+            <th width="16%">Registration No.</th>
+            <th width="12%">Route Name</th>
+            <th width="15%">Stop Place</th>
+            <th width="10%">Route Fare</th>
+            <th width="12%">Vehicle No.</th>
+            <th >Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of reportData; let i = index">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{row?.firstName}} {{row?.lastName}}</td>
+              <td>{{row?.registerNo}}</td>
+              <td>{{row?.vehicleRoute?.route?.routeName}}</td>
+              <td>{{row?.vehicleRoute?.stoppage?.stoppageName}}</td>
+              <td>{{row?.vehicleRoute?.stoppage?.routeFare}}</td>
+              <td>{{row?.vehicleRoute?.vehicle?.vehicleNo}}</td>
+              
+              <td>
+                <!--<button class="btn emp-edit me-1"><i class="fa-solid fa-pencil"></i></button>-->
+                <button class="btn emp-edit ms-1" (click)="openDeleteModal(deleteRec,row)"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+          </ng-container>         
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-layout>
+<ng-template #deleteRec>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopup()"></button>
+  </div>
+  <div class="modal-body">
+   Are you sure you want to delete this Record?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  (click)="closePopup()">Cancel</button>
+    <button type="button" class="btn btn-primary"  (click)="deleteConfirm(deleteRecId)">Confirm</button>
+  </div>
+</ng-template>

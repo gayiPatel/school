@@ -1,0 +1,34 @@
+@import "src/app/themes/variables";
+
+.uploads {
+  padding: 16px 8px;
+  border: 1px solid $color-primary;
+  border-radius: 20px;
+
+  .upload-cont {
+    width: 120px;
+    height: 120px;
+    border: 1px dashed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border-color: $color-primary;
+    margin: 0 auto;
+
+    i {
+      font-size: 32pt;
+      color: $color-primary;
+    }
+  }
+}
+
+.intruct-col {
+  padding-left: 50px;
+}
+
+button {
+  i {
+    color: $color-secondary;
+  }
+}

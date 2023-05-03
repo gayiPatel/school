@@ -1,0 +1,90 @@
+<app-layout>
+  <div class="container tab-container p-4">
+    <form [formGroup]="TeacherForm" (ngSubmit)="addTeachernew()">
+    <div class="row mt-5 mb-3">
+      <h6>Class Teacher  Allocation</h6>
+      <div class="col-3">
+        <label class="form-label">Academic Year *</label>
+        <input type="text" formControlName="academicYear" class="form-control"> 
+        <!-- <input matInput [matDatepicker]="picker1">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker> - <input matInput [matDatepicker]="picker2">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker> -->
+      </div>
+      <div class="col-3">
+        <label class="form-label">Student Class *</label>
+      
+        <label class="form-label">Class *</label>
+        <select class="form-select" formControlName="studentClass">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let sec of classes" [value]="sec._id">{{sec.className}}</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <label class="form-label">Section  *</label>
+        <!-- <input type="text" formControlName="section"  class="form-control"> -->
+        <!-- <label class="form-label">Class *</label> -->
+        <select class="form-select" formControlName="section">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let sec of sections" [value]="sec._id">{{sec.name}}</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <label class="form-label">Class Teacher *</label>
+        <!-- <input type="text" formControlName="teacher" class="form-control"> -->
+        <select class="form-select" formControlName="teacher">
+          <option disabled value="select">Select</option>
+          <option *ngFor="let sec of filteredEmp" [value]="sec._id">{{sec.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="text-end mb-5">
+      <button class="btn">Save</button>
+    </div>
+</form>
+    <h6 class="table-heading mb-3">Class Teacher List</h6>
+    <div class="top-options">
+      <div class="search-area">
+        <div class="input-group pe-3">
+          <input type="search" class="form-control" placeholder="Search here...">
+          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <div class="options">
+          <button class="btn"><img src="assets/icons/opt-copy.svg"></button>
+          <button class="btn"><img src="assets/icons/opt-excel.svg"></button>
+          <button class="btn"><img src="assets/icons/opt-pdf.svg"></button>
+          <button class="btn"><img src="assets/icons/opt-sheet.svg"></button>
+          <button class="btn"><img src="assets/icons/opt-print.svg"></button>
+        </div>
+      </div>
+    </div>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">SL</th>
+          <th scope="col">Branch</th>
+          <th scope="col">Class Teacher</th>
+          <th scope="col">Class</th>
+          <th scope="col">Section</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#001234</td>
+          <td>Six</td>
+          <td>A</td>
+          <td>A</td>
+          <td>111111</td>
+          <td>
+            <button class="btn emp-edit me-1"><i class="fa-solid fa-pencil"></i></button>
+            <button class="btn emp-edit ms-1"><i class="fa-solid fa-trash-can"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-layout>

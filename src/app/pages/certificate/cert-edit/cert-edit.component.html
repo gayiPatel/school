@@ -1,0 +1,164 @@
+<app-layout>
+  <div class="container p-4">
+    <div class="tab-container">
+      <nav mat-tab-nav-bar mat-stretch-tabs="false" mat-align-tabs="start" selectedIndex="2" [tabPanel]="tabPanel">
+        <a mat-tab-link routerLink="../">Certificate List</a>
+        <a mat-tab-link [active]="true">Edit Certificate</a>
+      </nav>
+
+      <mat-tab-nav-panel #tabPanel>
+        <form [formGroup]="certiForm" (ngSubmit)="updateCerti()">
+          <div class="mt-5">
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="form-label">Certificate Name *</label>
+                <input type="text" formControlName="name" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">Applicable User *</label>
+                <select class="form-select" formControlName="applicableUser">
+                  <option disabled value="select">Select</option>
+                  <option value="Student">Student</option>
+                  <option value="Employee">Employee</option>
+                </select>
+              </div>
+
+              <!-- <div class="col-6" *ngIf="certiForm.get('certType')?.value == 'student'">
+                <label class="form-label">Student Name *</label>
+                <select class="form-select" formControlName="userId">
+                  <option disabled value="select">Select</option>
+                  <option *ngFor="let stud of students" [value]="stud._id">{{stud.firstName + " " + stud.lastName}}</option>
+                </select>
+              </div>
+
+              <div class="col-6" *ngIf="certiForm.get('certType')?.value == 'employee'">
+                <label class="form-label">Employee Name *</label>
+                <select class="form-select" formControlName="userId">
+                  <option disabled value="select">Select</option>
+                  <option *ngFor="let emp of employees" [value]="emp._id">{{emp.name}}</option>
+                </select>
+              </div> -->
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Page Layout *</label>
+              <select class="form-select" formControlName="pageLayout">
+                <option disabled value="select">Select</option>
+                <option value="A4 (Landscape)">A4 (Landscape)</option>
+                <option value="A4 (Potrait)">A4 (Potrait)</option>
+              </select>
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label">User Photo Style *</label>
+              <div class="col-4">
+                <select class="form-select" formControlName="userPhotoStyle">
+                  <option disabled value="select">Select</option>
+                  <option value="Square">Square</option>
+                  <option value="Round">Round</option>
+                </select>
+              </div>
+              <div class="col-4 offset-4">
+                <input type="number" formControlName="userPhotoSize" class="form-control" placeholder="Photo Size (px)">
+              </div>
+            </div>
+            <div class="row mb-3">
+            <div class="row mb-3">
+              <label class="form-label">Layout Spacing *</label>
+              <div class="col-4">
+                <input type="number" formControlName="top" class="form-control" placeholder="Top Space (px)">
+              </div>
+              <div class="col-4 offset-4">
+                <input type="number" formControlName="bottom" class="form-control" placeholder="Bottom Space (px)">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-4">
+                <input type="number" formControlName="right" class="form-control" placeholder="Right Space (px)">
+              </div>
+              <div class="col-4 offset-4">
+                <input type="number" formControlName="left" class="form-control" placeholder="Left Space (px)">
+              </div>
+            </div>
+          </div>
+
+
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="form-label">Signature Image</label>
+                <ngx-file-drop [multiple]="false" [directory]="false" (onFileDrop)="onFilesDropped($event, 'signImg')">
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <ng-container *ngIf="!signImg">
+                        Drag and drop or
+                        <a class="p-1 btn btn-link" type="button" (click)="openFileSelector()">Browse Files</a>
+                      </ng-container>
+                      <ng-container *ngIf="signImg">
+                        {{signImg.name}}
+                        <a class="p-1 btn btn-link" style="color: #F44336;" type="button" (click)="signImg=null">
+                          Remove
+                        </a>
+                      </ng-container>
+                  </ng-template>
+                </ngx-file-drop>
+              </div>
+
+              <div class="col-4">
+                <label class="form-label">Logo Image</label>
+                <ngx-file-drop [multiple]="false" [directory]="false" (onFileDrop)="onFilesDropped($event, 'logoImg')">
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <ng-container *ngIf="!logoImg">
+                        Drag and drop or
+                        <a class="p-1 btn btn-link" type="button" (click)="openFileSelector()">Browse Files</a>
+                      </ng-container>
+                      <ng-container *ngIf="logoImg">
+                        {{logoImg.name}}
+                        <a class="p-1 btn btn-link" style="color: #F44336;" type="button" (click)="logoImg=null">
+                          Remove
+                        </a>
+                      </ng-container>
+                  </ng-template>
+                </ngx-file-drop>
+              </div>
+
+              <div class="col-4">
+                <label class="form-label">Background Image</label>
+                <ngx-file-drop [multiple]="false" [directory]="false" (onFileDrop)="onFilesDropped($event, 'backImg')">
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                      <ng-container *ngIf="!backImg">
+                        Drag and drop or
+                        <a class="p-1 btn btn-link" type="button" (click)="openFileSelector()">Browse Files</a>
+                      </ng-container>
+                      <ng-container *ngIf="backImg">
+                        {{backImg.name}}
+                        <a class="p-1 btn btn-link" style="color: #F44336;" type="button" (click)="backImg=null">
+                          Remove
+                        </a>
+                      </ng-container>
+                  </ng-template>
+                </ngx-file-drop>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Certificate Content</label>
+              <quill-editor formControlName="content"></quill-editor>
+            </div>
+
+            <div class="text-end">
+              <button class="btn" [disabled]="isLoading || !certiForm.valid
+                || certiForm.get('certType')?.value == 'select' || certiForm.get('applicableUser')?.value == 'select'
+                || certiForm.get('pageLayout')?.value == 'select' || certiForm.get('userPhotoStyle')?.value == 'select'">
+                <span *ngIf="isLoading" class="spinner-border text-light"></span>
+                <span *ngIf="!isLoading">Save</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-tab-nav-panel>
+    </div>
+  </div>
+</app-layout>
